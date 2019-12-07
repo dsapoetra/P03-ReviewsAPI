@@ -24,10 +24,10 @@ public class Review {
     private String content;
 
     @NotNull
-    private Date dateCreation;
+    private Date createdDate;
 
     @Min(1)
-    @Max(5)
+    @Max(100)
     private int rating;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -54,12 +54,12 @@ public class Review {
         this.content = content;
     }
 
-    public Date getDateCreation() {
-        return dateCreation;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Product getProduct() {
@@ -91,7 +91,7 @@ public class Review {
         return "Review{" +
                 "reviewId=" + reviewId +
                 ", content='" + content + '\'' +
-                ", dateCreation=" + dateCreation +
+                ", createdDate=" + createdDate +
                 ", rating=" + rating +
                 ", product=" + product +
                 ", comments=" + comments +

@@ -24,14 +24,14 @@ CREATE TABLE reviews (
 );
 
 INSERT INTO reviews (content, created_date, rating, product_id)
-VALUES ('Review 1 of product A', NOW(), 98, 1);
+VALUES ('Review 1 of product A', NOW(), 4, 1);
 INSERT INTO reviews (content, created_date, rating, product_id)
-VALUES ('Review 2 of product A', NOW(), 100, 1);
+VALUES ('Review 2 of product A', NOW(), 5, 1);
 
 INSERT INTO reviews (content, created_date, rating, product_id)
-VALUES ('Review 1 of product B', NOW(), 70, 2);
+VALUES ('Review 1 of product B', NOW(), 4, 2);
 INSERT INTO reviews (content, created_date, rating, product_id)
-VALUES ('Review 2 of product B', NOW(), 80, 2);
+VALUES ('Review 2 of product B', NOW(), 5, 2);
 
 CREATE TABLE comments (
     comment_id INT NOT NULL AUTO_INCREMENT,
