@@ -2,7 +2,6 @@ package com.udacity.course3.reviews.controller;
 
 import com.udacity.course3.reviews.model.Product;
 import com.udacity.course3.reviews.model.Review;
-import com.udacity.course3.reviews.model.ReviewBuilder;
 import com.udacity.course3.reviews.repository.ProductRepository;
 import com.udacity.course3.reviews.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +53,7 @@ public class ReviewsController {
         Date date = new Date();
         Product product = opProduct.get();
 
-        Review nReview = new ReviewBuilder().withContent(content).withCreatedDate(date).withProduct(product).withRating(rating).build();
+        Review nReview = new Review(content, date, rating, product);
         reviewRepository.save(nReview);
 
         return new ResponseEntity<Review>(nReview, HttpStatus.OK);

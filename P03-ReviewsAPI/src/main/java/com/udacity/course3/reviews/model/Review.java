@@ -1,7 +1,6 @@
 package com.udacity.course3.reviews.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -13,7 +12,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "reviews")
-@GeneratePojoBuilder
 public class Review {
 
     @Id
@@ -37,6 +35,17 @@ public class Review {
     @OneToMany(mappedBy = "review")
     @JsonIgnore
     private List<Comment> comments;
+
+
+    public Review() {
+    }
+
+    public Review(@NotBlank String content, @NotBlank Date createdDate, @Min(1) @Max(100) int rating, Product product) {
+        this.content = content;
+        this.createdDate = createdDate;
+        this.rating = rating;
+        this.product = product;
+    }
 
     public int getReviewId() {
         return reviewId;

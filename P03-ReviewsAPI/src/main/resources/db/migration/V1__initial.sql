@@ -18,20 +18,20 @@ CREATE TABLE reviews (
     rating INT,
     created_date TIMESTAMP NOT NULL,
     product_id INT NOT NULL,
-    CONSTRAINT rating_ck CHECK (rating BETWEEN 1 AND 5),
+    CONSTRAINT rating_ck CHECK (rating BETWEEN 1 AND 100),
     CONSTRAINT review_pk PRIMARY KEY (review_id),
     CONSTRAINT review_product_fk FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
 INSERT INTO reviews (content, created_date, rating, product_id)
-VALUES ('Review 1 of product A', NOW(), 4, 1);
+VALUES ('Review 1 of product A', NOW(), 100, 1);
 INSERT INTO reviews (content, created_date, rating, product_id)
-VALUES ('Review 2 of product A', NOW(), 5, 1);
+VALUES ('Review 2 of product A', NOW(), 99, 1);
 
 INSERT INTO reviews (content, created_date, rating, product_id)
-VALUES ('Review 1 of product B', NOW(), 4, 2);
+VALUES ('Review 1 of product B', NOW(), 98, 2);
 INSERT INTO reviews (content, created_date, rating, product_id)
-VALUES ('Review 2 of product B', NOW(), 5, 2);
+VALUES ('Review 2 of product B', NOW(), 76, 2);
 
 CREATE TABLE comments (
     comment_id INT NOT NULL AUTO_INCREMENT,

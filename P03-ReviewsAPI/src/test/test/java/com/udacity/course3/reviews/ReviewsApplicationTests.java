@@ -1,9 +1,6 @@
 package com.udacity.course3.reviews;
 
 import com.udacity.course3.reviews.model.*;
-import com.udacity.course3.reviews.model.CommentBuilder;
-import com.udacity.course3.reviews.model.ProductBuilder;
-import com.udacity.course3.reviews.model.ReviewBuilder;
 import com.udacity.course3.reviews.repository.CommentRepository;
 import com.udacity.course3.reviews.repository.ProductRepository;
 import com.udacity.course3.reviews.repository.ReviewRepository;
@@ -45,52 +42,62 @@ public class ReviewsApplicationTests {
 
     @Test
     public void testFindProductById() {
-        Product product = new ProductBuilder().withDescription("description").withName("name").withPrice(10.99F).build();
+        Product product = new Product("name", "desc", 1F);
 
-        // SQL scripts creates and populates the database
         productRepository.save(product);
 
         Product actual = productRepository.findById(product.getProductId()).get();
 
-        assertNull(actual);
+        assertNotNull(actual);
         assertEquals(product.getProductId(), actual.getProductId());
+        assertEquals(product.getDescription(), actual.getDescription());
+        assertEquals(product.getPrice(), actual.getPrice(), 0F);
     }
 
     @Test
     public void testFindReviewsByProduct() throws ParseException {
-        // Populate the database with product and reviews.
-        Product product = new ProductBuilder().withDescription("description").withName("name").withPrice(10.99F).build();
+        Product product = new Product("name", "desc", 1F);
         productRepository.save(product);
 
         Date date = new SimpleDateFormat("yyyy/MM/dd").parse("2019/01/01");
-        Review review = new ReviewBuilder().withContent("content").withCreatedDate(date).withRating(99).withProduct(product)
+        Review review = new Review("content", date, 99, product);
 
         reviewRepository.save(review);
 
-        // Query the reviews
         List<Review> reviews = reviewRepository.findReviewsByProduct(product);
+        Review actualReview = reviews.get(0);
 
         assertEquals(1, reviews.size());
+        assertEquals(review.getContent(), actualReview.getContent());
+        assertEquals(review.getComments(), actualReview.getComments());
+        assertEquals(review.getCreatedDate(), actualReview.getCreatedDate());
+        assertEquals(review.getProduct(), actualReview.getProduct());
+        assertEquals(review.getRating(), actualReview.getRating());
+        assertEquals(review.getReviewId(), actualReview.getReviewId());
+
     }
 
 	@Test
 	public void testFindCommentsByReview() throws ParseException {
-		// Populate the database with product and reviews.
-        Product product = new ProductBuilder().withDescription("description").withName("name").withPrice(10.99F).build();
+        Product product = new Product("name", "desc", 1F);
         productRepository.save(product);
 
         Date date = new SimpleDateFormat("yyyy/MM/dd").parse("2019/01/01");
-        Review review = new ReviewBuilder().withContent("content").withCreatedDate(date).withRating(99).withProduct(product)
+        Review review = new Review("content", date, 99, product);
 
         reviewRepository.save(review);
 
-		Comment comment = new CommentBuilder().withContent("content").withCreatedDate(date).withReview(review).build();
+		Comment comment = new Comment("content", date, review);
 
 		commentRepository.save(comment);
 
-		// Query the comments
 		List<Comment> comments = commentRepository.findCommentsByReview(review);
+		Comment actualComment = comments.get(0);
 
 		assertEquals(1, comments.size());
+		assertEquals(comment.getCommentId(), actualComment.getCommentId());
+		assertEquals(comment.getContent(), actualComment.getContent());
+		assertEquals(comment.getcreatedDate(), actualComment.getcreatedDate());
+		assertEquals(comment.getReview(), actualComment.getReview());
 	}
 }

@@ -1,7 +1,6 @@
 package com.udacity.course3.reviews.controller;
 
 import com.udacity.course3.reviews.model.Comment;
-import com.udacity.course3.reviews.model.CommentBuilder;
 import com.udacity.course3.reviews.model.Review;
 import com.udacity.course3.reviews.repository.CommentRepository;
 import com.udacity.course3.reviews.repository.ReviewRepository;
@@ -50,7 +49,7 @@ public class CommentsController {
         Date date = new Date();
         Review review = opReview.get();
 
-        Comment nComment = new CommentBuilder().withContent(content).withCreatedDate(date).withReview(review).build();
+        Comment nComment = new Comment(content, date, review);
 
         commentRepository.save(nComment);
 

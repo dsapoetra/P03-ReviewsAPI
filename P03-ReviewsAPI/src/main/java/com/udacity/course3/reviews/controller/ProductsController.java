@@ -1,7 +1,6 @@
 package com.udacity.course3.reviews.controller;
 
 import com.udacity.course3.reviews.model.Product;
-import com.udacity.course3.reviews.model.ProductBuilder;
 import com.udacity.course3.reviews.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +36,7 @@ public class ProductsController {
         String name = product.get("name");
         String desc = product.get("description");
         float price = Float.parseFloat(product.get("price"));
-        productRepository.save(new ProductBuilder().withName(name).withDescription(desc).withPrice(price).build());
+        productRepository.save(new Product(name, desc, price));
     }
 
     /**

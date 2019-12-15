@@ -1,7 +1,6 @@
 package com.udacity.course3.reviews.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -13,7 +12,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "products")
-@GeneratePojoBuilder
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +31,15 @@ public class Product {
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private List<Review> reviews = new ArrayList<Review>();
+
+    public Product() {
+    }
+
+    public Product(@NotBlank @Size(min = 1, max = 300) String name, String description, @NotNull @DecimalMin("0.01") float price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
 
     public int getProductId() {
         return productId;

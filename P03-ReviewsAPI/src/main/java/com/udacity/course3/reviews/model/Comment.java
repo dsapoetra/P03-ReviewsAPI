@@ -1,7 +1,5 @@
 package com.udacity.course3.reviews.model;
 
-import net.karneim.pojobuilder.GeneratePojoBuilder;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -9,7 +7,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "comments")
-@GeneratePojoBuilder
 public class Comment {
 
     @Id
@@ -25,6 +22,16 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "review_id")
     private Review review;
+
+
+    public Comment() {
+    }
+
+    public Comment(@NotBlank String content, @NotNull Date createdDate, Review review) {
+        this.content = content;
+        this.createdDate = createdDate;
+        this.review = review;
+    }
 
     public int getCommentId() {
         return commentId;
